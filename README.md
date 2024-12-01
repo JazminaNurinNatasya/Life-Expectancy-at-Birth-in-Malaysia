@@ -12,7 +12,11 @@ This project examines the trends in life expectancy at birth in Malaysia over th
 
 # Methodology
 Data Collection: Compile life expectancy and related indicators from multiple sources.
+
 Data Cleaning: Handle missing values, standardize formats, and ensure consistency.
+
 Analysis: Perform trend analysis, correlation studies, and factor impact evaluation.
+
 Visualization: Create informative charts to communicate findings effectively.
+
 Insights and Recommendations: Derive actionable insights to support healthcare policy development.
