@@ -1,0 +1,143 @@
+!pip install pycaret
+!pip install pandas
+!pip install shap
+import pandas as pd
+from pycaret.regression import *
+from google.colab import files
+dataset = files.upload()
+prediction = files.upload()
+
+import io
+data = pd.read_csv(io.BytesIO(dataset['le2.csv']))
+pred = pd.read_csv(io.BytesIO(prediction['pred.csv']))
+# Initialize the PyCaret environment
+exp = setup(data, target='LifeExpectancy', preprocess=True, normalize=True, session_id=123)
+
+# Compare different regression models, returning top 5 models
+best_model = compare_models(n_select=5)
+
+#------------------------ Extra Tree -----------------------------
+model1 = best_model[0]
+tuned_model1 = tune_model(model1)
+evaluate_model(tuned_model1)
+
+import shap
+interpret_model(tuned_model1)
+
+save_model(tuned_model1, 'Extra_Tree')
+model1 = load_model('Extra_Tree')
+pred.head()
+
+predictions1 = predict_model(model1, data=pred)
+print(predictions1)
+
+#---------------------- Light BGM --------------------------------
+model2 = best_model[1]
+tuned_model2 = tune_model(model2)
+evaluate_model(tuned_model2)
+
+import shap
+interpret_model(tuned_model2)
+
+save_model(tuned_model2, 'lightGBM')
+model2 = load_model('lightGBM')
+
+predictions2 = predict_model(model2, data=pred)
+print(predictions2)
+
+#-------------------- Gradient Boosting Regressor -----------------
+model3 = best_model[2]
+tuned_model3 = tune_model(model3)
+evaluate_model(tuned_model3)
+
+save_model(tuned_model3, 'GBR')
+model3 = load_model('GBR')
+
+predictions3 = predict_model(model3, data=pred)
+print(predictions3)
+
+#------------------ Random Forest ------------------------------
+model4 = best_model[3]
+tuned_model4 = tune_model(model4)
+evaluate_model(tuned_model4)
+
+import shap
+interpret_model(tuned_model4)
+
+save_model(tuned_model4, 'RandomForest')
+model4 = load_model('RandomForest')
+pred.head()
+
+predictions4 = predict_model(model4, data=pred)
+print(predictions4)
+
+#------------------ K Neighbors Regressor ------------------------
+model5 = best_model[4]
+tuned_model5 = tune_model(model5)
+evaluate_model(tuned_model5)
+
+save_model(tuned_model5, 'KNN')
+model2 = load_model('KNN')
+
+predictions5 = predict_model(model5, data=pred)
+print(predictions5)
+
+#-------------------- Correlation Plot ------------------------
+# Correlation plot for Measles vs Life Expectancy
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import pearsonr
+
+# Calculate the correlation coefficient
+correlation_coefficient, _ = pearsonr(data['MEASLES'], data['LifeExpectancy'])
+
+plt.figure(figsize=(8, 6))
+sns.regplot(x='MEASLES', y='LifeExpectancy', data=data, ci=None)
+plt.title(f'Correlation Plot: Measles vs Life Expectancy\nCorrelation Coefficient: {correlation_coefficient:.2f}')
+plt.xlabel('Measles')
+plt.ylabel('Life Expectancy')
+plt.show()
+
+# Correlation plot for Diphtheria vs Life Expectancy
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+from scipy.stats import pearsonr
+
+# Calculate the correlation coefficient
+correlation_coefficient, _ = pearsonr(data['Diphtheria'], data['LifeExpectancy'])
+
+plt.figure(figsize=(8, 6))
+sns.regplot(x='Diphtheria', y='LifeExpectancy', data=data, ci=None)
+plt.title(f'Correlation Plot: Diphtheria vs Life Expectancy\nCorrelation Coefficient: {correlation_coefficient:.2f}')
+plt.xlabel('Diphtheria')
+plt.ylabel('Life Expectancy')
+plt.show()
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+
+selected_cols = ['MEASLES', 'Diphtheria', 'cvd', 'Polio', 'HIV/AIDS', 'obesity', 'LifeExpectancy']
+subset_data = data[selected_cols]
+subset_data = subset_data.rename(columns={
+    'MEASLES': 'Measles',
+    'Diphtheria': 'Diphtheria',
+    'cvd': 'CVD',
+    'LifeExpectancy': 'Life Expectancy'
+})
+
+# Calculate the correlation matrix
+corr_matrix = subset_data.corr()
+
+# Create a heatmap
+plt.figure(figsize=(10, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='Greens')
+plt.title('Correlation Matrix')
+plt.show()
+
+#Extra tress regressor outperform other model tested
+#Measles and diphtheria immunization coverage are the top 2 most important feature for extra trees
+#Out of five top model, Diphteria and Measles immunization coverage are the top 2 most important feature of three model (Extra trees, GBR, Random forest)
+#Both of the features have positive impact towards life expectancy (based on scatterplot and heatmap above)
