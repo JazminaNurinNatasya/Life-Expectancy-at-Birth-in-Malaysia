@@ -16,7 +16,7 @@ exp = setup(data, target='LifeExpectancy', preprocess=True, normalize=True, sess
 # Compare different regression models, returning top 5 models
 best_model = compare_models(n_select=5)
 
-#------------------------ Extra Tree -----------------------------
+#-------------------------- Extra Tree -----------------------------
 model1 = best_model[0]
 tuned_model1 = tune_model(model1)
 evaluate_model(tuned_model1)
