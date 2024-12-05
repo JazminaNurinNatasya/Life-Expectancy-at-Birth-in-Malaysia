@@ -11,12 +11,12 @@ This project examines the trends in life expectancy at birth in Malaysia over th
 3. What insights can be drawn to improve healthcare policies and reduce disparities?
 
 # Methodology
-Data Collection: Compile life expectancy and related indicators from multiple sources.
+1. Data Collection: Compile life expectancy and related indicators from multiple sources.
 
-Data Cleaning: Handle missing values, standardize formats, and ensure consistency.
+2. Data Cleaning: Handle missing values, standardize formats, and ensure consistency.
 
-Analysis: Perform trend analysis, correlation studies, and factor impact evaluation.
+3. Analysis: Perform trend analysis, correlation studies, and factor impact evaluation.
 
-Visualization: Create informative charts to communicate findings effectively.
+4. Visualization: Create informative charts to communicate findings effectively.
 
-Insights and Recommendations: Derive actionable insights to support healthcare policy development.
+5. Insights and Recommendations: Derive actionable insights to support healthcare policy development.
