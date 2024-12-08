@@ -8,7 +8,7 @@ This project examines the trends in life expectancy at birth in Malaysia over th
 
 # Research Questions
 1. What are the trends in life expectancy at birth in Malaysia from 2000 to 2021?
-2. How do factors like healthcare expenditure, literacy rates, and income levels correlate with changes in life expectancy?
+2. How do disease factors correlate with changes in life expectancy?
 3. What insights can be drawn to improve healthcare policies and reduce disparities?
 
 # Methodology
