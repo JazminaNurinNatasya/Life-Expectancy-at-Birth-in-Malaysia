@@ -1,6 +1,7 @@
 # Life-Expectancy-at-Birth-in-Malaysia
-
 A data-driven project analyzing life expectancy trends and factors influencing healthcare outcomes in Malaysia.
+
+![ISM Challenge](https://github.com/user-attachments/assets/c536bae0-47ac-43a7-bedf-a75784642df8)
 
 # Project Overview
 This project examines the trends in life expectancy at birth in Malaysia over the past two decades, focusing on identifying key drivers of change. Leveraging data from reliable sources such as WHO and DOSM, the project explores the relationship between life expectancy and factors like healthcare quality, socioeconomic changes, and public health policies.
